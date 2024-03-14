@@ -1,0 +1,94 @@
+{% extends 'user/base.html' %}
+{% block title %}
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+    <header>
+        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis">Регистрация</h1>
+            <p class="fs-5 text-body-secondary">Введите данные для регистрации</p>
+        </div>
+    </header>
+{% endblock %}
+
+{% block body %}
+    <style>
+
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+    }
+
+    .registration-form {
+        margin: auto;
+        padding: 1em;  /* Уменьшаем отступы */
+        border: 1px solid #ccc;
+        border-radius: 8px;  /* Увеличиваем скругление углов */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background: #ffffff;
+        max-width: 400px;  /* Устанавливаем максимальную ширину формы */
+        width: 100%;
+    }
+
+    .registration-form .form-error {
+        color: #ff0000;
+        margin-bottom: 1em;
+    }
+
+    .registration-form p {
+        margin-bottom: 0.5em;  /* Уменьшаем расстояние снизу */
+    }
+
+    .registration-form input,
+    .registration-form textarea,
+    .registration-form select {
+        width: 100%;
+        padding: 0.5em;
+        margin-bottom: 0.5em;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 0.9em;  /* Уменьшаем размер шрифта */
+    }
+
+    .registration-form button.btn-register {
+        background-color: #007bff;
+        color: white;
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1em;
+        margin-top: 0.5em;  /* Уменьшаем отступ сверху */
+    }
+
+    .registration-form button.btn-register {
+        background-color: #343a40;
+        color: white;
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;  /* Уменьшаем размер шрифта кнопки */
+        transition: background-color 0.2s;
+    }
+
+    .registration-form button.btn-register:hover {
+        background-color: #495057;
+    }
+    
+</style>
+
+
+
+    <div class="form-container">
+        <form method='post' enctype="multipart/form-data" class="registration-form">
+            {% csrf_token %}
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            {{ form.as_p }}
+            <button type="submit" class="btn-register">Зарегистрироваться</button>
+            
+        </form>
+    </div>
+{% endblock %}
