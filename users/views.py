@@ -10,12 +10,12 @@ from users.models import User
 from users.services import generation
 
 
-class HomeView(View):
-    template_name = 'user/base.html'
-
-    def get(self, request):
-        return render(request, self.template_name)
-
+# class HomeView(View):
+#     template_name = 'user/base.html'
+#
+#     def get(self, request):
+#         return render(request, self.template_name)
+#
 
 class Registrations(CreateView):
     template_name = 'user/register.html'
@@ -62,4 +62,4 @@ class LoginView(BaseLoginView):
 def LogoutUser(request):
     logout(request)
 
-    return redirect('user:home')
+    return redirect('person:home')

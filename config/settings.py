@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # apps
     'users',
+    'person',
 ]
 
 MIDDLEWARE = [
@@ -139,5 +140,5 @@ EMAIL_HOST_USER = 'geidarovrufat@yandex.ru'
 EMAIL_HOST_PASSWORD = 'etmkgnowaujqzmtr'
 EMAIL_USE_SSL = True
 
-LOGIN_REDIRECT_URL = 'user:home'
-LOGOUT_REDIRECT_URL = 'user:home'
+LOGIN_REDIRECT_URL = 'person:home'
+LOGOUT_REDIRECT_URL = '/'
