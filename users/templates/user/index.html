@@ -136,7 +136,7 @@
                      <img src="{% mediapath user.avatar %}" alt="" width="32"
                      height="32" class="rounded-circle me-2" <h4>{{ user.first_name }} {{ user.last_name }}</h4>>
                     <ul class="list-unstyled">
-                         <li><img  src="{% static 'icons/room.png' %}" width="32" height="32" class="rounded-circle me-2"><a href="{% url 'users:register' %}" class="text-white">Личный кабинет</a></li>
+                         <li><img  src="{% static 'icons/room.png' %}" width="32" height="32" class="rounded-circle me-2"><a href="{% url 'users:profile' %}" class="text-white">Личный кабинет</a></li>
                         <li> <img  src="{% static 'icons/logout.png' %}" width="32" height="32" class="rounded-circle me-2"><a href="{% url 'users:logout' %}" class="text-white">Выход</a></li>
                     </ul>
                     {% endif %}
