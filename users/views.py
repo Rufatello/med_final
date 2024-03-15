@@ -1,13 +1,13 @@
 from django.conf import settings
 from django.contrib.auth import logout
 from django.core.mail import send_mail
-from django.contrib.auth.views import LoginView as BaseLoginView
+from django.contrib.auth.views import LoginView as BaseLoginView, PasswordChangeView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import View, CreateView
-from users.forms import UserForm
+from django.views.generic import View, CreateView, UpdateView
+from users.forms import UserForm, UserFormUpdate, PasswordChangingForm
 from users.models import User
-from users.services import generation
+from users.services import generation, new_pass
 
 
 class ProfileView(View):
@@ -52,7 +52,7 @@ class CodeView(View):
         if user is not None and user.code == code:
             user.is_active = True
             user.save()
-            return redirect('users:home')
+            return redirect('person:home')
 
 
 class LoginView(BaseLoginView):
@@ -63,3 +63,24 @@ def LogoutUser(request):
     logout(request)
 
     return redirect('person:home')
+
+
+class UserUpdate(UpdateView):
+    model = User
+    form_class = UserFormUpdate
+    template_name = 'user/update.html'
+    success_url = reverse_lazy('person:home')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('user:login')
+    template_name = 'user/user_password.html'
+
+
+def new_password(request):
+    a = new_pass(request)
+    return a

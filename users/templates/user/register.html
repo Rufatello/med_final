@@ -1,14 +1,13 @@
 {% extends 'user/index.html' %}
 {% block title %}
-    <div class="b-example-divider"></div>
-
-    <div class="container">
-    <header>
-        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-            <h1 class="display-4 fw-normal text-body-emphasis">Регистрация</h1>
-            <p class="fs-5 text-body-secondary">Введите данные для регистрации</p>
+    <section class="py-1 text-center container">
+        <div class="row py-lg-1">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Изменение данных</h1>
+                <p class="lead text-body-secondary">Введите данные для изменения профиля</p>
+            </div>
         </div>
-    </header>
+    </section>
 {% endblock %}
 
 {% block body %}
@@ -18,7 +17,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 70vh;
+        min-height: 1vh;
     }
 
     .registration-form {
@@ -91,4 +90,13 @@
             
         </form>
     </div>
+{% endblock %}
+{% block footer %}
+<footer class="bg-light text-center py-3" style="position: absolute; bottom: 0; width: 100%;">
+    <marquee behavior="alternate" direction="right">Бегущая строка</marquee>
+    <div class="container">
+        <p class="mb-1">Сайт был создан в образовательных целях</p>
+        <p class="mb-0">&copy; 2024 - {% now 'Y' %}
+    </div>
+</footer>
 {% endblock %}

@@ -8,11 +8,11 @@
     <title>User Profile</title>
     <style>
         .profile-container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
             border: 1px solid #eee;
-            border-radius: 5px;
+            border-radius: 10px;
             background-color: #f9f9f9;
             margin-left: 100px;
 
@@ -34,8 +34,18 @@
     <p><strong>Имя:</strong> {{ user.first_name }}</p>
     <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
     <p><strong>Статус:</strong> {% if user.is_active %} Активен {% else %} Неактивен {% endif %}</p>
-    <a class="p-2 btn btn-outline-danger" href="#">Сгенирировать новый пароль</a>
-    <a class="p-2 btn btn-outline-danger" href="#">Сменить пароль</a>
+    <a class="p-2 btn btn-outline-danger" href="{% url 'user:new_password' %}">Сгенирировать новый пароль</a>
+    <a class="p-2 btn btn-outline-danger" href="{% url 'user:user_password' %}">Сменить пароль</a>
+    <a class="p-2 btn btn-outline-success" href="{% url 'user:update' %}">Редактировать профиль</a>
 </div>
 </body>
+{% endblock %}
+{% block footer %}
+<footer class="fixed-bottom bg-light text-center py-3">
+    <marquee behavior="alternate" direction="right">Бегущая строка</marquee>
+    <div class="container">
+        <p class="mb-1">Сайт был создан в образовательных целях</p>
+        <p class="mb-0">&copy; 2024 - {% now 'Y' %}
+    </div>
+</footer>
 {% endblock %}

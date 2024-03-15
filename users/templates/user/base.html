@@ -44,3 +44,17 @@
 
     </div>
 {% endblock %}
+{% block footer %}
+<footer class="text-body-secondary py-5">
+    <marquee behavior="alternate" direction="right">Бегущая строка</marquee>
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Вверх</a>
+        </p>
+        <p class="mb-1">Сайт был создан в образовательных целях</p>
+        <p class="mb-0">&copy; 2024 - {% now 'Y' %}
+    </div>
+
+
+</footer>
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django import forms
 from users.models import User
 
@@ -23,3 +23,21 @@ class UserForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].help_text = None
         self.fields['password2'].help_text = None
+
+
+class UserFormUpdate(UserChangeForm):
+    first_name = forms.CharField(label='Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    last_name = forms.CharField(label='Фамилия', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    avatar = forms.ImageField(label='avatar', widget=forms.FileInput(attrs={'class': 'form-input'}))
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'avatar')
+
+    def __init__(self, *args, **kwargs):
+        super(UserFormUpdate, self).__init__(*args, **kwargs)
+        self.fields['password'].widget = forms.HiddenInput()
+
+
+class PasswordChangingForm(PasswordChangeForm):
+    pass
