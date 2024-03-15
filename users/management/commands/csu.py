@@ -11,7 +11,7 @@ class Command(BaseCommand):
             is_superuser=True,
             first_name='Rufat',
             last_name='Geydarov',
-            email='2@mail.ru'
+            email='1@mail.ru'
         )
         user.set_password('12345')
         user.save()
