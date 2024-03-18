@@ -32,7 +32,10 @@
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Добавить в корзину</button>
                                         {% if user.is_superuser == True %}
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary"
+                                                   href="{% url 'person:product_update' object.pk %}">Редактировать</a>
+                                            <a type="button" class="btn btn-sm btn-outline-danger"
+                                                   href="{% url 'person:product_delete' object.pk %}">Удалить</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -41,7 +44,7 @@
                     </div>
                 {% endfor %}
             </div>
-            <a href="#" class="btn btn-secondary my-2">Добавить продукт</a>
+            <a href="{% url 'person:product_create' %}" class="btn btn-secondary my-2">Добавить продукт</a>
 
             {% if is_paginated %}
                 <ul class="pagination justify-content-center">

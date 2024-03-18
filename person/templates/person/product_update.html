@@ -1,24 +1,16 @@
 {% extends "user/index.html" %}
-{% block title %}
-    <section class="py-1 text-center container">
-        <div class="row py-lg-5">
-            <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Добавить продукт</h1>
-                <p class="lead text-body-secondary">Введите данные для добавления продукта</p>
-            </div>
-        </div>
-    </section>
-{% endblock %}
 {% block body %}
     <style>
         .form-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 7vh;
+            min-height: 70vh;
         }
 
         .registration-form {
+            width: 100%; /* Это гарантирует, что форма занимает всю ширину контейнера */
+            max-width: 500px; /* Максимальная ширина может предотвратить слишком большую ширину на больших экранах */
             margin: auto;
             padding: 2em;
             border: 1px solid #ccc;
@@ -70,6 +62,29 @@
         .registration-form button.btn-register:hover {
             background-color: #495057;
         }
+
+        @media (max-width: 768px) {
+            .registration-form {
+                padding: 1em; /* Уменьшаем отступы */
+            }
+        }
+
+        /* Медиа-запросы для маленьких экранов, например, мобильных телефонов */
+        @media (max-width: 576px) {
+            .registration-form {
+                padding: 0.5em; /* Ещё меньше отступов */
+            }
+
+            .registration-form input,
+            .registration-form textarea,
+            .registration-form select {
+                padding: 0.25em; /* Уменьшаем отступы внутри полей ввода */
+            }
+
+            .registration-form button.btn-register {
+                padding: 0.25em 0.5em; /* Уменьшаем отступы кнопки */
+            }
+        }
     </style>
 
 
@@ -78,7 +93,8 @@
             {% csrf_token %}
             <div class="form-error">{{ form.non_field_errors }}</div>
             {{ form.as_p }}
-            <button type="submit" class="btn-register">Добавить</button>
+            <button type="submit" class="btn-register">Сохранить</button>
+
+
         </form>
-    </div>
 {% endblock %}
