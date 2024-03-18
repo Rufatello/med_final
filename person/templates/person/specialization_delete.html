@@ -1,0 +1,35 @@
+{% extends "user/index.html" %}
+
+{% block title %}
+    <section class="py-1 text-center container">
+        <div class="row py-lg-1">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Удаление Комментария</h1>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body %}
+    <div class="form-container">
+        <form method='post'>
+            {% csrf_token %}
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            {{ form.as_p }}
+            <h3>Вы действительно хотите удалить Комментарий?</h3>
+            <button type="submit" class="btn btn-danger">Да</button>
+            <button type="button" href="{% url 'person:product' %}" class="btn btn-success">Нет</button>
+
+
+        </form>
+{% endblock %}
+
+{% block footer %}
+<footer class="fixed-bottom bg-light text-center py-3">
+    <marquee behavior="alternate" direction="right">Бегущая строка</marquee>
+    <div class="container">
+        <p class="mb-1">Сайт был создан в образовательных целях</p>
+        <p class="mb-0">&copy; 2024 - {% now 'Y' %}
+    </div>
+</footer>
+{% endblock %}

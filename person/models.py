@@ -3,12 +3,19 @@ from django.db import models
 from users.models import NULLABLE, User
 
 
+class Specialization(models.Model):
+    name = models.CharField(max_length=30, verbose_name='Название специализации')
+    descriptions = models.TextField(verbose_name='Описание')
+    photo = models.ImageField(upload_to='specialization/', **NULLABLE)
+
+
 class Person(models.Model):
     first_name = models.CharField(max_length=30, verbose_name='Имя')
     last_name = models.CharField(max_length=30, verbose_name='Фамилия')
     phone = models.CharField(max_length=15, unique=True, **NULLABLE, verbose_name='Телефон')
     education = models.CharField(max_length=300, verbose_name='Образование')
     photo = models.ImageField(upload_to='person/', verbose_name='Фото')
+    specialization = models.ForeignKey(Specialization, on_delete=models.CASCADE, **NULLABLE)
 
     def __str__(self):
         return f'{self.first_name}'
@@ -49,6 +56,8 @@ class Basket(models.Model):
 
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор статьи')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт', related_name='comments_product')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукт', related_name='comments_product', **NULLABLE)
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name='Продукт', related_name='comments_person', **NULLABLE)
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     text = models.TextField(verbose_name='Текст комментария')
+

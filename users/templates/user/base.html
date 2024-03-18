@@ -7,8 +7,8 @@
                 <h1 class="fw-light">Главная страница</h1>
                 <p class="lead text-body-secondary">Вы можете ознакомится с нашими врачами и записаться на прием в любое удобное время</p>
                 <p>
-                    <a href="#" class="btn btn-primary my-2">Список всех врачей</a>
-                    <a href="#" class="btn btn-secondary my-2">Просмотреть процедуры</a>
+                    <a href="{% url 'person:specialization' %}" class="btn btn-primary my-2">Список направлений</a>
+                    <a href="{% url 'person:person_list' %}" class="btn btn-secondary my-2">Просмотреть врачей</a>
                     <a href="{% url 'person:product' %}" class="btn btn-secondary my-2">Онлайн аптека</a>
                 </p>
             </div>

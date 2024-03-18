@@ -1,0 +1,150 @@
+{% extends "user/index.html" %}
+{% load static %}
+{% load mediapath %}
+{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о враче</title>
+    <style>
+        .profile-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            margin-left: 100px;
+
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .profile-container {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment-item {
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    font-weight: bold;
+    margin-bottom: 5px;
+}.profile-container {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment-item {
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.add-comment-form {
+    margin-top: 20px;
+}
+
+.add-comment-form {
+    margin-top: 20px;
+}
+    </style>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="profile-container">
+                <h1>{{ person.first_name }} {{ person.last_name }}</h1>
+                <img src="{{ object.photo|mediapath }}" alt="Avatar" class="profile-avatar">
+                <p><strong>Телефон:</strong> {{ person.phone }}</p>
+                <p><strong>Образование:</strong> {{ person.education }}</p>
+                <p><strong>Специализация:</strong> {{ person.specialization.name }}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="comments-section">
+                <h2>Комментарии ({{ object.comments_person.all.count }})</h2>
+<hr>
+<ul class="comments-list">
+    {% for comment in object.comments_person.all %}
+        <li class="comment-item">
+            <div class="comment-info">
+                <strong>Автор: {{ comment.user.first_name }}</strong>
+                <p><strong>Дата: {{ comment.date }}</strong><a href="{% url 'person:comment_delete_person' pk=comment.pk %}">
+                    <img src="{% static 'icons/free-icon-delete-14360493.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
+                </a></p>
+            </div>
+            <div class="comment-text">
+                <p>Текст: {{ comment.text }}</p>
+            </div>
+        </li>
+    {% empty %}
+        <li>Пока нет комментариев.</li>
+    {% endfor %}
+</ul>
+            {% if not user.is_authenticated %}
+                <p></p>
+            {% else %}
+                <div class="add-comment-form">
+                    <form action="" id="add_form" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button form="add_form" type="submit" class="btn btn-primary">Добавить комментарий</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
