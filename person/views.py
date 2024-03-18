@@ -155,11 +155,20 @@ class PersonUpdate(UpdateView):
     fields = '__all__'
 
 
-# class PersonListView(ListView):
-#     model = Product
-#     template_name = 'person/product.html'
-#     context_object_name = 'object_list'
-#     def get_queryset(self):
-#         category_id = self.kwargs['category_id']
-#         category = Person.objects.get(id=category_id)
-#         return Product.objects.filter(categories=category)
+class PersonListView(ListView):
+    model = Product
+    template_name = 'person/person.html'
+    context_object_name = 'object_list'
+    paginate_by = 3
+
+    def get_queryset(self):
+        specialization_id = self.kwargs['category_id']
+        specialization = Specialization.objects.get(id=specialization_id)
+        return Person.objects.filter(specialization=specialization)
+
+
+class PersonCreate(CreateView):
+    model = Person
+    template_name = 'person/person_create.html'
+    fields = '__all__'
+    success_url = reverse_lazy('person:person_list')

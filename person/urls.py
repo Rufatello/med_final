@@ -21,6 +21,8 @@ urlpatterns = [
     path('comment_person/create/', views.SpecializationCreate.as_view(), name='specialization_create'),
     path('specilization_update/<int:pk>/', views.SpecializationUpdate.as_view(), name='specialization_update'),
     path('specilization_delete/<int:pk>/', views.SpecializationDelete.as_view(), name='specialization_delete'),
-    path('person_update/<int:pk>/', views.PersonUpdate.as_view(), name='person_update')
+    path('person_update/<int:pk>/', views.PersonUpdate.as_view(), name='person_update'),
+    path('person/<int:category_id>/', views.PersonListView.as_view(), name='person_person'),
+    path('person_create/', views.PersonCreate.as_view(), name='person_create'),
 
 ]

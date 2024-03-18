@@ -25,18 +25,19 @@
                         <div class="card shadow-sm">
                             <div class="card-img-top" style="background-image: url('{{ object.photo|mediapath }}'); background-size: cover; background-position: center; width: 100%; height: 200px;"></div>
                             <div class="card-body">
-                                <p class="card-text">Название: {{ object.name }} </p>
-                                <p class="card-text">Описание: {{ object.descriptions }}</p>
+                                <p class="card-text">ФИО: {{ object.first_name }} {{ object.last_name }} </p>
+                                <p class="card-text">Образование: {{ object.education }}</p>
+                                <p class="card-text">Телефон: {{ object.phone }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <a type="button" class="btn btn-sm btn-outline-secondary"
-                                            href="{% url 'person:person_person' category_id=object.id %}">Список врачей</a>
+                                            href="{% url 'person:person_view' object.pk %}">Подробнее</a>
 
                                         {% if user.is_superuser == True %}
                                             <a type="button" class="btn btn-sm btn-outline-secondary"
-                                                   href="{% url 'person:specialization_update' object.pk %}">Редактировать</a>
+                                                   href="{% url 'person:person_update' object.pk %}">Редактировать</a>
                                             <a type="button" class="btn btn-sm btn-outline-danger"
-                                                   href="{% url 'person:specialization_delete' object.pk %}">Удалить</a>
+                                                   href="{% url 'person:product_delete' object.pk %}">Удалить</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -46,7 +47,7 @@
                 {% endfor %}
             </div>
         {% if user.is_superuser == True %}
-            <a href="{% url 'person:specialization_create' %}" class="btn btn-secondary my-2">Добавить специализацию</a>
+            <a href="{% url 'person:product_create' %}" class="btn btn-secondary my-2">Добавить врача</a>
         {% endif %}
 
             {% if is_paginated %}
