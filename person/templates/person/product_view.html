@@ -1,4 +1,5 @@
 {% extends "user/index.html" %}
+{% load static %}
 {% load mediapath %}
 {% block body %}
 <head>
@@ -115,27 +116,34 @@
         <div class="col-md-6">
             <div class="comments-section">
                 <h2>Комментарии ({{ object.comments_product.all.count }})</h2>
-                <hr>
-                <ul class="comments-list">
-                    {% for comment in object.comments_product.all %}
-                        <li class="comment-item">
-                            <div class="comment-info">
-                                <strong>Автор: {{ comment.user.first_name }}, {{ comment.date }}</strong>
-                            </div>
-                            <div class="comment-text">
-                                <p>Текст: {{ comment.text }}</p>
-                            </div>
-                        </li>
-                    {% empty %}
-                        <li>Пока нет комментариев.</li>
-                    {% endfor %}
-                </ul>
+<hr>
+<ul class="comments-list">
+    {% for comment in object.comments_product.all %}
+        <li class="comment-item">
+            <div class="comment-info">
+                <strong>Автор: {{ comment.user.first_name }}</strong>
+                <p><strong>Дата: {{ comment.date }}</strong><a href="{% url 'person:comment_delete' pk=comment.pk %}">
+                    <img src="{% static 'icons/free-icon-delete-14360493.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
+                </a></p>
+            </div>
+            <div class="comment-text">
+                <p>Текст: {{ comment.text }}</p>
+            </div>
+        </li>
+    {% empty %}
+        <li>Пока нет комментариев.</li>
+    {% endfor %}
+</ul>
+            {% if not user.is_authenticated %}
+                <p></p>
+            {% else %}
                 <div class="add-comment-form">
                     <form action="" id="add_form" method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button form="add_form" type="submit" class="btn btn-primary">Добавить комментарий</button>
                     </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

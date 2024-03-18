@@ -1,9 +1,10 @@
+from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.edit import FormMixin
 
 from person.forms import CommentsForm
-from person.models import Person, Product
+from person.models import Person, Product, Comments
 
 
 class PersonViewList(ListView):
@@ -66,6 +67,16 @@ class ProductDetailView(DetailView, FormMixin):
         return super().form_valid(form)
 
 
+class CommendDelete(DeleteView):
+    model = Comments
+    template_name = 'person/comments_delete.html'
+    success_url = reverse_lazy('person:product')
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.user != self.request.user and not self.request.user.is_staff:
+            raise Http404("Вы не являетесь владельцем этого клиента")
+        return self.object
 
 
 
