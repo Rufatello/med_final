@@ -1,5 +1,8 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic.edit import FormMixin
+
+from person.forms import CommentsForm
 from person.models import Person, Product
 
 
@@ -38,6 +41,29 @@ class ProductDelete(DeleteView):
     template_name = 'person/product_delete.html'
     success_url = reverse_lazy('person:product')
 
+
+class ProductDetailView(DetailView, FormMixin):
+    model = Product
+    template_name = 'person/product_view.html'
+    form_class = CommentsForm
+    success_url = reverse_lazy('person:product')
+
+    # def get_success_url(self):
+    #     return reverse_lazy('product_view', kwargs={'pk': self.get_object().id})
+
+    def post(self, requests, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.product = self.get_object()
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
 
 
 

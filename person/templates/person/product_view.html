@@ -1,0 +1,143 @@
+{% extends "user/index.html" %}
+{% load mediapath %}
+{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        .profile-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            margin-left: 100px;
+
+        }
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .profile-container {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment-item {
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    font-weight: bold;
+    margin-bottom: 5px;
+}.profile-container {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment-item {
+    margin-bottom: 10px;
+}
+
+.comment-info {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.add-comment-form {
+    margin-top: 20px;
+}
+
+.add-comment-form {
+    margin-top: 20px;
+}
+    </style>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="profile-container">
+                <h1>{{ product.name }}</h1>
+                <img src="{% mediapath product.photo %}" alt="Avatar" class="profile-avatar">
+                <p><strong>Название:</strong> {{ product.name }}</p>
+                <p><strong>Описание:</strong> {{ product.descriptions }}</p>
+                <p><strong>Цена:</strong> {{ product.price }}</p>
+                <p><strong>Количество:</strong> {{ product.quantity }}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="comments-section">
+                <h2>Комментарии ({{ object.comments_product.all.count }})</h2>
+                <hr>
+                <ul class="comments-list">
+                    {% for comment in object.comments_product.all %}
+                        <li class="comment-item">
+                            <div class="comment-info">
+                                <strong>Автор: {{ comment.user.first_name }}, {{ comment.date }}</strong>
+                            </div>
+                            <div class="comment-text">
+                                <p>Текст: {{ comment.text }}</p>
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li>Пока нет комментариев.</li>
+                    {% endfor %}
+                </ul>
+                <div class="add-comment-form">
+                    <form action="" id="add_form" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button form="add_form" type="submit" class="btn btn-primary">Добавить комментарий</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

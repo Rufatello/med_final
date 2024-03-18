@@ -31,6 +31,9 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Добавить в корзину</button>
+                                        <a type="button" class="btn btn-sm btn-outline-secondary"
+                                            href="{% url 'person:product_view' object.pk %}">Подробнее</a>
+
                                         {% if user.is_superuser == True %}
                                             <a type="button" class="btn btn-sm btn-outline-secondary"
                                                    href="{% url 'person:product_update' object.pk %}">Редактировать</a>
@@ -44,7 +47,9 @@
                     </div>
                 {% endfor %}
             </div>
+        {% if user.is_superuser == True %}
             <a href="{% url 'person:product_create' %}" class="btn btn-secondary my-2">Добавить продукт</a>
+        {% endif %}
 
             {% if is_paginated %}
                 <ul class="pagination justify-content-center">
