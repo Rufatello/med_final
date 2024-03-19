@@ -27,5 +27,6 @@ urlpatterns = [
     path('person/<int:pk>/delete/', views.PersonDelete.as_view(), name='person_delete'),
     path('contact/', ContactView.as_view(), name='contact'),
     path('basket_add/<int:pk>/', views.basket_add, name='basket_add'),
+    path('basket_remove/<int:basket_id>/', views.basket_remove, name='basket_remove'),
 
 ]

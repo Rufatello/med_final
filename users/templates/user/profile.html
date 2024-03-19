@@ -1,5 +1,6 @@
 {% extends "user/index.html" %}
 {% load mediapath %}
+{% load static %}
 {% block title %}
 <head>
     <meta charset="UTF-8">
@@ -51,14 +52,19 @@
 </div>
 
 <div class="basket-container">
-    <h2>Корзина</h2>
+    <h2>Корзина ({{ total_quantity }})</h2>
     {% for basket in baskets %}
         <div class="basket-item">
             <p><strong>Название товара:</strong> {{ basket.product.name }}</p>
             <p><strong>Описание:</strong> {{ basket.product.descriptions }}</p>
             <p><strong>Количество:</strong> {{ basket.quantity }}</p>
+            <p><strong>Дата: {{ basket.sum }}</strong><a href="{% url 'person:basket_remove' basket.id %}">
+                    <img src="{% static 'icons/free-icon-delete-14360493.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
+                </a></p>
         </div>
     {% endfor %}
+     <hr>
+        <h3>Итог: {{ total_sum}} </h3>
 </div>
 </body>
 {% endblock %}

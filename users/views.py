@@ -17,7 +17,16 @@ class ProfileView(View):
 
     def get(self, request):
         baskets = Basket.objects.filter(user=request.user)
-        return render(request, self.template_name, {'baskets': baskets})
+        total_sum = sum(basket.sum() for basket in baskets)
+        total_quantity = sum(basket.quantity for basket in baskets)
+
+        context = {
+            'total_sum': total_sum,
+            'baskets': baskets,
+            'total_quantity': total_quantity
+
+        }
+        return render(request, self.template_name, context)
 
 
 class Registrations(CreateView):

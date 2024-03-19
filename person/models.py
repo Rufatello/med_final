@@ -49,6 +49,9 @@ class Basket(models.Model):
     def __str__(self):
         return f'{self.user.first_name}, {self.product.name}'
 
+    def sum(self):
+        return self.product.price*self.quantity
+
     class Meta:
         verbose_name = 'Корзина'
         verbose_name_plural = 'Корзина'
