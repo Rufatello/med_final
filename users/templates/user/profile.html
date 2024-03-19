@@ -14,8 +14,7 @@
             border: 1px solid #eee;
             border-radius: 10px;
             background-color: #f9f9f9;
-            margin-left: 100px;
-
+            float: left;
         }
         .profile-avatar {
             width: 150px;
@@ -23,7 +22,19 @@
             border-radius: 50%;
             margin-bottom: 20px;
         }
-
+        .basket-container {
+            float: right; 
+            width: calc(80% - 800px);
+            padding: 80px;
+            margin-top: 0%;
+        }
+        .basket-item {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px; 
+            margin-top: 3px;
+        }
     </style>
 </head>
 <body>
@@ -34,9 +45,20 @@
     <p><strong>Имя:</strong> {{ user.first_name }}</p>
     <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
     <p><strong>Статус:</strong> {% if user.is_active %} Активен {% else %} Неактивен {% endif %}</p>
-    <a class="p-2 btn btn-outline-danger" href="{% url 'user:new_password' %}">Сгенирировать новый пароль</a>
+    <a class="p-2 btn btn-outline-danger" href="{% url 'user:new_password' %}">Сгенерировать новый пароль</a>
     <a class="p-2 btn btn-outline-danger" href="{% url 'user:user_password' %}">Сменить пароль</a>
     <a class="p-2 btn btn-outline-success" href="{% url 'user:update' %}">Редактировать профиль</a>
+</div>
+
+<div class="basket-container">
+    <h2>Корзина</h2>
+    {% for basket in baskets %}
+        <div class="basket-item">
+            <p><strong>Название товара:</strong> {{ basket.product.name }}</p>
+            <p><strong>Описание:</strong> {{ basket.product.descriptions }}</p>
+            <p><strong>Количество:</strong> {{ basket.quantity }}</p>
+        </div>
+    {% endfor %}
 </div>
 </body>
 {% endblock %}

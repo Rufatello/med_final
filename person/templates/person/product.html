@@ -30,7 +30,8 @@
                                 <p class="card-text">Цена: {{ object.price }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Добавить в корзину</button>
+                                       <a type="button" class="btn btn-sm btn-outline-secondary"
+                                                   href="{% url 'person:basket_add' object.pk %}">Добавить в корзину</a>
                                         <a type="button" class="btn btn-sm btn-outline-secondary"
                                             href="{% url 'person:product_view' object.pk %}">Подробнее</a>
 

@@ -1,11 +1,11 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.edit import FormMixin
 from person.forms import CommentsForm
-from person.models import Person, Product, Comments, Specialization
+from person.models import Person, Product, Comments, Specialization, Basket
 
 
 class PersonViewList(ListView):
@@ -194,3 +194,20 @@ class ContactView(View):
             message = request.POST.get('message')
             print(name, phone, message)
         return render(request, self.template_name)
+
+
+def basket_add(request, pk):
+    product = Product.objects.get(pk=pk)
+    basket = Basket.objects.filter(user=request.user, product=product)
+
+    if not basket.exists():
+        Basket.objects.create(
+            user=request.user,
+            product=product,
+            quantity=1
+        )
+    else:
+        basket = basket.first()
+        basket.quantity+=1
+        basket.save()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

@@ -26,5 +26,6 @@ urlpatterns = [
     path('person_create/', views.PersonCreate.as_view(), name='person_create'),
     path('person/<int:pk>/delete/', views.PersonDelete.as_view(), name='person_delete'),
     path('contact/', ContactView.as_view(), name='contact'),
+    path('basket_add/<int:pk>/', views.basket_add, name='basket_add'),
 
 ]

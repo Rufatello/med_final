@@ -47,7 +47,7 @@ class Basket(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
 
     def __str__(self):
-        return f'{self.user.email}, {self.product.name}'
+        return f'{self.user.first_name}, {self.product.name}'
 
     class Meta:
         verbose_name = 'Корзина'

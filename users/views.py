@@ -5,6 +5,8 @@ from django.contrib.auth.views import LoginView as BaseLoginView, PasswordChange
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import View, CreateView, UpdateView
+
+from person.models import Basket
 from users.forms import UserForm, UserFormUpdate, PasswordChangingForm
 from users.models import User
 from users.services import generation, new_pass
@@ -14,7 +16,8 @@ class ProfileView(View):
     template_name = 'user/profile.html'
 
     def get(self, request):
-        return render(request, self.template_name)
+        baskets = Basket.objects.filter(user=request.user)
+        return render(request, self.template_name, {'baskets': baskets})
 
 
 class Registrations(CreateView):
