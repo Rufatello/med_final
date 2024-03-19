@@ -128,7 +128,7 @@
                     <ul class="list-unstyled">
                          <li><img  src="{% static 'icons/reg.png' %}" width="32" height="32" class="rounded-circle me-2"><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
                         <li> <img  src="{% static 'icons/red.png' %}" width="32" height="32" class="rounded-circle me-2"><a href="{% url 'users:login' %}" class="text-white">Вход</a></li>
-                        <li><a href="#" class="text-white">Email me</a></li>
+                        <li><img  src="{% static 'icons/reg.png' %}" width="32" height="32" class="rounded-circle me-2"><a href="{% url 'person:contact' %}" class="text-white">Обратная связь</a></li>
                     </ul>
                     {% else %}
                      <img src="{% mediapath user.avatar %}" alt="" width="32"

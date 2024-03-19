@@ -1,8 +1,9 @@
 from django.http import Http404
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.edit import FormMixin
-
 from person.forms import CommentsForm
 from person.models import Person, Product, Comments, Specialization
 
@@ -172,3 +173,24 @@ class PersonCreate(CreateView):
     template_name = 'person/person_create.html'
     fields = '__all__'
     success_url = reverse_lazy('person:person_list')
+
+
+class PersonDelete(DeleteView):
+    model = Person
+    template_name = 'person/person_delete.html'
+    success_url = reverse_lazy('person:person_list')
+
+
+class ContactView(View):
+    template_name = 'person/contact.html'
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        if request.method == 'POST':
+            name = request.POST.get('name')
+            phone = request.POST.get('phone')
+            message = request.POST.get('message')
+            print(name, phone, message)
+        return render(request, self.template_name)

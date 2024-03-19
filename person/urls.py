@@ -1,7 +1,7 @@
 from django.urls import path
 from person.apps import PersonConfig
 from . import views
-
+from .views import ContactView
 
 app_name = PersonConfig.name
 
@@ -24,5 +24,7 @@ urlpatterns = [
     path('person_update/<int:pk>/', views.PersonUpdate.as_view(), name='person_update'),
     path('person/<int:category_id>/', views.PersonListView.as_view(), name='person_person'),
     path('person_create/', views.PersonCreate.as_view(), name='person_create'),
+    path('person/<int:pk>/delete/', views.PersonDelete.as_view(), name='person_delete'),
+    path('contact/', ContactView.as_view(), name='contact'),
 
 ]
