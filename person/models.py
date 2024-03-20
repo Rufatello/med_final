@@ -64,3 +64,10 @@ class Comments(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     text = models.TextField(verbose_name='Текст комментария')
 
+
+class Appointment(models.Model):
+    person = models.ForeignKey(Person, verbose_name='Врач', on_delete=models.CASCADE)
+    data = models.DateField(verbose_name='Дата')
+    time = models.TimeField(verbose_name='Время')
+    user = models.ForeignKey(User, verbose_name='Владелец', on_delete=models.CASCADE)
+

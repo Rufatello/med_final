@@ -28,5 +28,8 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('basket_add/<int:pk>/', views.basket_add, name='basket_add'),
     path('basket_remove/<int:basket_id>/', views.basket_remove, name='basket_remove'),
+    path('appointment_create/', views.AppointmentCreate.as_view(), name='appointment_create'),
+    path('appointment_update/<int:pk>/', views.AppointmentUpdate.as_view(), name='appointment_update'),
+    path('appointment_delete/<int:pk>/', views.AppointmentDelete.as_view(), name='appointment_delete'),
 
 ]

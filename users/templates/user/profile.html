@@ -24,7 +24,7 @@
             margin-bottom: 20px;
         }
         .basket-container {
-            float: right; 
+            float: right;
             width: calc(80% - 800px);
             padding: 80px;
             margin-top: 0%;
@@ -33,8 +33,14 @@
             background-color: #f5f5f5;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 5px; 
+            padding: 5px;
             margin-top: 3px;
+        }
+        .appointment-container {
+            float: right;
+            width: calc(80% - 800px);
+            padding: 80px;
+            margin-top: 0%;
         }
     </style>
 </head>
@@ -51,29 +57,42 @@
     <a class="p-2 btn btn-outline-success" href="{% url 'user:update' %}">Редактировать профиль</a>
 </div>
 
-<div class="basket-container">
+<div class="appointment-container">
     <h2>Корзина ({{ total_quantity }})</h2>
     {% for basket in baskets %}
         <div class="basket-item">
             <p><strong>Название товара:</strong> {{ basket.product.name }}</p>
             <p><strong>Описание:</strong> {{ basket.product.descriptions }}</p>
             <p><strong>Количество:</strong> {{ basket.quantity }}</p>
-            <p><strong>Сумма: {{ basket.sum }}</strong><a href="{% url 'person:basket_remove' basket.id %}">
+            <p><strong>Сумма: {{ basket.sum }}</strong>
+                <a href="{% url 'person:basket_remove' basket.id %}">
                     <img src="{% static 'icons/free-icon-delete-14360493.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
-                </a></p>
+                </a>
+            </p>
         </div>
     {% endfor %}
-     <hr>
-        <h3>Итог: {{ total_sum}} </h3>
+    <hr>
+    <h3>Итог: {{ total_sum}}</h3>
+    <a class="p-2 btn btn-outline-primary" href="#">Купить</a>
 </div>
+
+
+</div>
+<div class="basket-container">
+    <h2>Мои записи к врачу</h2>
+    {% for appointment in appointments %}
+        <div class="basket-item">
+            <p><strong>Имя:</strong> {{ appointment.person.first_name }}</p>
+            <p><strong>Фамилия:</strong> {{ appointment.person.last_name }}</p>
+            <p><strong>Направление:</strong> {{ appointment.person.specialization.name }}</p>
+            <p><strong>Дата:</strong> {{ appointment.data }}</p>
+            <p><strong>Время:</strong> {{ appointment.time }}</p>
+            <a href="{% url 'person:appointment_delete' appointment.pk %}">
+                <img src="{% static 'icons/free-icon-delete-14360493.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
+                <a href="{% url 'person:appointment_update' appointment.pk %}">
+                <img src="{% static 'icons/free-icon-edit-3756597.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
+            </a>
+        </div>
+    {% endfor %}
 </body>
-{% endblock %}
-{% block footer %}
-<footer class="fixed-bottom bg-light text-center py-3">
-    <marquee behavior="alternate" direction="right">Бегущая строка</marquee>
-    <div class="container">
-        <p class="mb-1">Сайт был создан в образовательных целях</p>
-        <p class="mb-0">&copy; 2024 - {% now 'Y' %}
-    </div>
-</footer>
 {% endblock %}

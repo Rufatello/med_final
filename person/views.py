@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.edit import FormMixin
 from person.forms import CommentsForm
-from person.models import Person, Product, Comments, Specialization, Basket
+from person.models import Person, Product, Comments, Specialization, Basket, Appointment
 
 
 class PersonViewList(ListView):
@@ -217,3 +217,29 @@ def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+class AppointmentCreate(CreateView):
+    model = Appointment
+    fields = ('person', 'data', 'time',)
+    template_name = 'person/appointment_create.html'
+    success_url = reverse_lazy('user:profile')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+
+class AppointmentUpdate(UpdateView):
+    model = Appointment
+    fields = ('person', 'data', 'time',)
+    template_name = 'person/appointment_update.html'
+    success_url = reverse_lazy('user:profile')
+
+
+class AppointmentDelete(DeleteView):
+    model = Appointment
+    template_name = 'person/appointment_delete.html'
+    success_url = reverse_lazy('user:profile')

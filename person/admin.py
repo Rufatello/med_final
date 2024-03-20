@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from person.models import Person, Product, Basket, Comments
+from person.models import Person, Product, Basket, Comments, Appointment
 
 
 @admin.register(Person)
@@ -22,3 +22,7 @@ class BasketAdmin(admin.ModelAdmin):
 class BasketAdmin(admin.ModelAdmin):
     list_display = ('pk', 'product',)
 
+
+@admin.register(Appointment)
+class BasketAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'user', 'data', 'time',)
