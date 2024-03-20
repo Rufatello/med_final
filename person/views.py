@@ -137,10 +137,10 @@ class SpecializationList(ListView):
 
 
 class SpecializationUpdate(UpdateView):
-    model = Product
+    model = Specialization
     template_name = 'person/product_update.html'
     success_url = reverse_lazy('person:specialization')
-    fields = ('name', 'price', 'descriptions', 'photo', 'quantity',)
+    fields = ('name', 'descriptions', 'photo',)
 
 
 class SpecializationDelete(DeleteView):

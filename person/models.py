@@ -6,7 +6,7 @@ from users.models import NULLABLE, User
 class Specialization(models.Model):
     name = models.CharField(max_length=30, verbose_name='Название специализации')
     descriptions = models.TextField(verbose_name='Описание')
-    photo = models.ImageField(upload_to='specialization/', **NULLABLE)
+    photo = models.ImageField(upload_to='specialization/', **NULLABLE, verbose_name='Фото')
 
 
 class Person(models.Model):

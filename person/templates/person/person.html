@@ -47,7 +47,7 @@
                 {% endfor %}
             </div>
         {% if user.is_superuser == True %}
-            <a href="{% url 'person:product_create' %}" class="btn btn-secondary my-2">Добавить врача</a>
+            <a href="{% url 'person:person_create' %}" class="btn btn-secondary my-2">Добавить врача</a>
         {% endif %}
 
             {% if is_paginated %}

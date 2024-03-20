@@ -58,7 +58,7 @@
             <p><strong>Название товара:</strong> {{ basket.product.name }}</p>
             <p><strong>Описание:</strong> {{ basket.product.descriptions }}</p>
             <p><strong>Количество:</strong> {{ basket.quantity }}</p>
-            <p><strong>Дата: {{ basket.sum }}</strong><a href="{% url 'person:basket_remove' basket.id %}">
+            <p><strong>Сумма: {{ basket.sum }}</strong><a href="{% url 'person:basket_remove' basket.id %}">
                     <img src="{% static 'icons/free-icon-delete-14360493.png' %}" width="28" height="28" class="rounded-circle me-2" alt="Delete">
                 </a></p>
         </div>
