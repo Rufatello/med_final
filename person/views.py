@@ -252,7 +252,7 @@ def payments_create(request):
     total_sum = sum(basket.sum() for basket in baskets)
     total_quantity = sum(basket.quantity for basket in baskets)
     payments_create = stripe.Price.create(
-        currency="rub",
+        currency="usd",
         unit_amount=int(total_sum),
         recurring={"interval": "month"},
         product_data={"name": 'dsadas'},
