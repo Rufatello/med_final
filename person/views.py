@@ -1,4 +1,5 @@
-from django.http import Http404, HttpResponseRedirect
+import stripe
+from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
@@ -243,3 +244,22 @@ class AppointmentDelete(DeleteView):
     model = Appointment
     template_name = 'person/appointment_delete.html'
     success_url = reverse_lazy('user:profile')
+
+
+def payments_create(request):
+    stripe.api_key = 'sk_test_51OdoXSHC8LUh8NqZQboynIwfP7znL7qfNqCOqOYkl7k3pzAKN8QU45ye5RpnABJ2MRjLBfk6tWWisTmY9QoiXJNR00NP3ImbNV'
+    baskets = Basket.objects.filter(user=request.user)
+    total_sum = sum(basket.sum() for basket in baskets)
+    total_quantity = sum(basket.quantity for basket in baskets)
+    payments_create = stripe.Price.create(
+        currency="rub",
+        unit_amount=int(total_sum),
+        recurring={"interval": "month"},
+        product_data={"name": 'dsadas'},
+    )
+    payment_intent = stripe.PaymentLink.create(
+        line_items=[{"price":payments_create.id , "quantity": total_quantity}])
+
+    if request.method == 'GET':
+        return JsonResponse({'a': payment_intent.url})
+
