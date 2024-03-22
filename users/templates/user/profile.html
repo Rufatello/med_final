@@ -73,7 +73,28 @@
     {% endfor %}
     <hr>
     <h3>Итог: {{ total_sum}}</h3>
-    <a class="p-2 btn btn-outline-primary" href="{% url 'person:payment' %}">Купить</a>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+Перейти к оплате
+</button>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Переход к оплате</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <h2>Количество товаров - {{ total_quantity }}</h2>
+          <h2>Сумма - {{ total_sum}} р.</h2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <a href="{% url 'person:perehod' %}">
+        <button type="button" class="btn btn-primary">Купить</button>
+          </a>
+    </div>
+  </div>
+</div>
 </div>
 
 
@@ -94,5 +115,7 @@
             </a>
         </div>
     {% endfor %}
+
+
 </body>
 {% endblock %}

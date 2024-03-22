@@ -1,6 +1,6 @@
 import stripe
 from django.http import Http404, HttpResponseRedirect, JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
@@ -258,8 +258,13 @@ def payments_create(request):
         product_data={"name": 'dsadas'},
     )
     payment_intent = stripe.PaymentLink.create(
-        line_items=[{"price":payments_create.id , "quantity": total_quantity}])
+        line_items=[{"price": payments_create.id, "quantity": total_quantity}])
 
     if request.method == 'GET':
-        return JsonResponse({'a': payment_intent.url})
+        return payment_intent.url
+
+
+def perehod(request):
+    payment_url = payments_create(request)
+    return redirect(payment_url)
 
