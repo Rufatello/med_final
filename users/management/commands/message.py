@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def my_job():
+    """переодическая задача по отправке письма с записью к врачу"""
     timezone.activate('Europe/Moscow')
     today = datetime.now()
     moscow_tz = pytz.timezone('Europe/Moscow')

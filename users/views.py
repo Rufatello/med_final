@@ -13,6 +13,7 @@ from users.services import generation, new_pass
 
 
 class ProfileView(View):
+    """Вывод личного кабинета с общей суммой из корзины, с записями к врачу"""
     template_name = 'user/profile.html'
 
     def get(self, request):
@@ -32,6 +33,7 @@ class ProfileView(View):
 
 
 class Registrations(CreateView):
+    """реализованна регистрация с подтверждением почты"""
     template_name = 'user/register.html'
     model = User
     form_class = UserForm
@@ -53,6 +55,7 @@ class Registrations(CreateView):
 
 
 class CodeView(View):
+    """Страница ввода кода, который пришел на почту"""
     model = User
     template_name = 'user/code.html'
 
@@ -70,16 +73,19 @@ class CodeView(View):
 
 
 class LoginView(BaseLoginView):
+    """аутентификация"""
     template_name = 'user/login.html'
 
 
 def LogoutUser(request):
+    """Выход из учетной записи"""
     logout(request)
 
     return redirect('person:home')
 
 
 class UserUpdate(UpdateView):
+    """Редактирование профиля"""
     model = User
     form_class = UserFormUpdate
     template_name = 'user/update.html'
@@ -90,11 +96,13 @@ class UserUpdate(UpdateView):
 
 
 class PasswordsChangeView(PasswordChangeView):
+    """Смена пароля"""
     form_class = PasswordChangingForm
     success_url = reverse_lazy('user:login')
     template_name = 'user/user_password.html'
 
 
 def new_password(request):
+    """Генерация нового пароля"""
     a = new_pass(request)
     return a

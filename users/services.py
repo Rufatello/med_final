@@ -7,11 +7,13 @@ from django.urls import reverse
 
 
 def generation():
+    '''Генерация кода для подтверждения регистрации'''
     password = ''.join([str(random.randint(0, 9)) for _ in range(5)])
     return password
 
 
 def new_pass(request):
+    """Генерация пароля и отправка его на почту"""
     new_pass = ''.join([str(random.randint(0, 9)) for _ in range(5)])
     send_mail(
         subject='Новый пароль',
